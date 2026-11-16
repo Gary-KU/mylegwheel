@@ -1,0 +1,22 @@
+; Keep normal data/stack in DTCM; DMA1 buffers must reside in AXI SRAM.
+; Bank1 sectors 6/7 (0x080C0000..0x080FFFFF) are diagnostic record storage.
+LR_IROM1 0x08000000 0x000C0000 {
+  ER_IROM1 0x08000000 0x000C0000 {
+    *.o (RESET, +First)
+    *(InRoot$$Sections)
+    .ANY (+RO)
+    .ANY (+XO)
+  }
+  RW_LED_DMA 0x24000000 0x00000400 {
+    * (.led_dma)
+  }
+  RW_SBUS_DMA 0x24000400 0x00000400 {
+    * (.sbus_dma)
+  }
+  RW_LQR_RECORD 0x24001000 0x00040000 {
+    * (.bss.lqr_record)
+  }
+  RW_IRAM1 0x20000000 0x00020000 {
+    .ANY (+RW +ZI)
+  }
+}

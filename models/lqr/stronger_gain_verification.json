@@ -1,0 +1,15 @@
+{
+  "feedback_gain_scale": [
+    1.15,
+    1.15
+  ],
+  "firmware_output_scale": [
+    0.8,
+    1
+  ],
+  "max_gain_error": 2.0816681711721685E-15,
+  "max_firmware_pole_radius_old": 0.99412877612205031,
+  "max_firmware_pole_radius_new": 0.995338399746494,
+  "leg_lengths_checked": 101,
+  "limitation": "Centered nominal mass model; no front battery offset, motor saturation or real hardware motion in this pole check"
+}

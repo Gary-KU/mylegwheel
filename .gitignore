@@ -1,0 +1,53 @@
+# Build output, objects, caches and test artifacts.
+/build/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Local snapshots, debug logs and editor state.
+/backups/
+/diagnostics/
+/docs/
+*.zip
+*.uvguix.*
+/MDK-ARM/DebugConfig/
+.vscode/
+
+# Standalone nested git repos (kept as separate repositories).
+/projects/
+
+# Simulation outputs and caches (regenerable by running the .m scripts).
+*.mat
+*.slxc
+models/**/archive/
+models/**/cache/
+models/**/codegen/
+models/**/results/
+models/**/sim_cache/
+models/lqr/simulation/output/
+models/lqr/generation.log
+models/lqr/*_simulation.log
+models/lqr/stronger_gain_generation.log
+
+# Prebuilt CMSIS-DSP binaries, examples and test suites (not needed to build).
+Drivers/CMSIS/DSP/Lib/
+Drivers/CMSIS/DSP/Examples/
+Drivers/CMSIS/DSP/DSP_Lib_TestSuite/
+Drivers/CMSIS/DSP/PythonWrapper/
+
+# Keil generated output (objects/listings live under MDK-ARM build dirs).
+MDK-ARM/*.bak
+*.dep
+*.d
+*.o
+*.lst
+*.htm
+*.map
+*.axf
+*.hex
+*.bin
+*.elf
+*.lnp
+*.iex
+*.sct.bak
+models/**/344275277347224250350257264346230216.txt

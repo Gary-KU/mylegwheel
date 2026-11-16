@@ -1,0 +1,45 @@
+LMPC + 横滚阻尼仿真
+
+日常只看这三个文件：
+  open_roll_lmpc.m   打开模型，然后点击 Run，自动显示三维动画。
+  lmpc_parameters.m  质量、尺寸、腿长、支撑 PID、前后 LMPC 与力矩限制。
+  roll_parameters.m 横滚目标、回正力度、阻尼、修正力上限与初始侧倾角。
+修改参数后重新启动仿真即可生效。initial_roll_deg=3 可观察侧倾恢复。
+
+其余文件：
+  Self_Model_3D_LMPC_Roll.slx  主模型。
+  init_roll_lmpc.m            自动初始化，包含 LMPC 构建函数，一般无需修改。
+  tests/                     回归验证脚本。
+  results/                   已验证的数据和曲线；重新测试会覆盖同名结果。
+  archive/                   整理前的脚本和历史备份，不参与运行。
+  .cache/                    MATLAB 自动生成的缓存，可在关闭模型后删除。
+不要对 archive 使用 addpath(genpath(...))，避免旧参数遮盖当前参数。
+
+当前配置：
+  机身前后长 120 mm、横宽 100 mm、高 50 mm；左右腿安装间距 100 mm。
+  机身本体 2 kg，不包含沿用原模型的腿和轮，因此整车总质量大于 2 kg。
+  腿长目标 100 mm，轮半径 20 mm，控制周期 5 ms。
+  每腿重力前馈约 9.9215 N；支撑 PID：P=100、I=50、D=20。
+  横滚 Kp=6 N/rad、Kd=5.5 N*s/rad、角速度滤波时间常数 0.002 s。
+  横滚每侧修正力限制 +/-2 N；左腿加 deltaF，右腿减 deltaF。
+  四个腿关节限幅均为 0.7 N*m，这是仿真能力假设，尚未确认实物能力。
+  Simscape 与前后 LMPC 使用同一组机身质量、尺寸计算惯量。
+  横滚是独立 PD，与前后 LMPC 配合；目标角默认水平，未验证非零目标跟踪。
+
+测试：在本目录的 MATLAB 命令窗口执行
+  addpath('tests'); test_roll_smooth
+执行前先关闭主模型，测试脚本不覆盖已打开模型中的未保存修改。
+测试包括站立，以及横滚 +/-3°、俯仰 +/-3°、初始前进速度 0.15 m/s 的组合扰动。
+更全面的单轴测试：addpath('tests'); test_roll_lmpc
+原来的 test_roll_lmpc(true) 与 test_roll_lmpc(false,true) 也保留。
+
+2026-10-05 验证结果：
+  左右反向过冲 0.2877° / 0.2844°，旧横滚参数约 2.02° / 2.06°。
+  约 0.28 秒后保持在 +/-0.2° 内；超过该范围的过零均为一次。
+  5 秒末速度约 +0.00020 / -0.00016 m/s，腿长约 100.12 mm，MPC 求解正常。
+  仍有微小摆动，起始修正力触及 +/-2 N；不代表任意外力、地形、载荷都能这样恢复。
+  logsout 中 roll_rad、roll_rate_rad_s 使用 rad、rad/s。
+  roll_smooth_comparison.png 对比同一 2 kg 模型下的新旧横滚响应。
+
+此次整理合并了初始化脚本，并移出一次性构建、打包、发布和诊断脚本。
+主模型及控制参数未改变；原始 Self_Model_3D.slx 与 H7/F103 固件未改动。

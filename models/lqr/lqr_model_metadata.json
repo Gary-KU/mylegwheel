@@ -1,0 +1,105 @@
+{
+  "parameters": {
+    "total_mass_kg": 1.6,
+    "non_body_mass_kg": 0.35,
+    "body_mass_kg": 1.25,
+    "body_length_m": 0.12,
+    "body_width_m": 0.15,
+    "body_height_m": 0.05,
+    "body_com_height_m": 0.04,
+    "body_com_height_estimated": true,
+    "wheel_radius_m": 0.026,
+    "wheel_width_m": 0.024,
+    "plate_thickness_m": 0.007,
+    "plate_height_m": 0.02,
+    "upper_link_m": 0.05,
+    "lower_link_m": 0.105,
+    "hip_gap_m": 0.06,
+    "leg_length_m": 0.1,
+    "wheel_torque_limit_nm": 0.03,
+    "joint_torque_limit_nm": 0.68,
+    "Ts": 0.005,
+    "length_min_m": 0.04,
+    "length_max_m": 0.15,
+    "Q": [
+      800,
+      15,
+      200,
+      40,
+      200,
+      80
+    ],
+    "R": [
+      100000,
+      10000
+    ],
+    "feedback_gain_scale": [
+      1,
+      1
+    ],
+    "support_kp": 100,
+    "support_ki": 50,
+    "support_kd": 20,
+    "gravity_m_s2": 9.80665,
+    "non_body_mass_scale": 0.6043527291934507,
+    "wheel_density_kg_m3": 3021.7636459672535,
+    "plate_density_kg_m3": 483.4821833547606,
+    "wheel_mass_per_side_kg": 0.15401687324240335,
+    "leg_mass_per_side_kg": 0.020983126757596608,
+    "wheel_inertia_per_side": 5.2057703155932324e-05,
+    "leg_inertia_per_side": 1.5169052051845878e-05,
+    "body_pitch_inertia_per_side": 0.0008802083333333332,
+    "support_feedforward_n": 6.334930430017384,
+    "phi1_initial_deg": 209.84821852182932,
+    "phi4_initial_deg": -29.848218521829303,
+    "passive_initial_deg": -104.4775121859299,
+    "body_initial_height_m": 0.16100000000000003
+  },
+  "mass_split_estimated": true,
+  "max_linear_pole_radius": 0.9951410421958821,
+  "state_order": [
+    "theta",
+    "dtheta",
+    "x",
+    "dx",
+    "phi",
+    "dphi"
+  ],
+  "matrix_storage": "MATLAB column-major2x6: K[row+2*column]",
+  "firmware_feedback": "u=-K*(state-reference)",
+  "simscape_feedback": "u=+K*x because actuator coordinates oppose analytical inputs",
+  "generator": "scripts/generate_joint_pose_parking_1217_20261113.py",
+  "fit_sample_lengths_m": [
+    0.04,
+    0.05,
+    0.06,
+    0.06999999999999999,
+    0.07999999999999999,
+    0.09,
+    0.09999999999999999,
+    0.10999999999999999,
+    0.12,
+    0.12999999999999998,
+    0.13999999999999999,
+    0.15
+  ],
+  "cubic_fit_degree": 3,
+  "eight_state_screen": {
+    "worst_radius": 0.9962474326343729,
+    "length_m": [
+      0.07,
+      0.12
+    ],
+    "mass_kg": [
+      1.47,
+      1.6
+    ],
+    "independent_input_gains": [
+      0.7,
+      1,
+      1.3
+    ]
+  },
+  "validation_report": "diagnostics\\joint_pose_parking_1217_1600g_fit_20261113.json",
+  "physical_validation": "Pending new grounded hardware trial; numeric screens do not establish success."
+}
